@@ -44,7 +44,7 @@ const employee = [
         isEmployed: true,
     },
     {
-            id:2,
+        id:2,
         name:'Sally',
         ext:'1125',
         email: 'sally@gmail.com',
@@ -54,18 +54,18 @@ const employee = [
     }
     
 ]
-class BorderWrap extends React.Component {
-    render() {
-        const borderStyle = {border: "3px solid silver",
-        padding: 6}
-        return(
-            <div style={borderStyle}>
-                {this.props.children}
-            </div>
-        )
+// class BorderWrap extends React.Component {
+//     render() {
+//         const borderStyle = {border: "3px solid silver",
+//         padding: 6}
+//         return(
+//             <div style={borderStyle}>
+//                 {this.props.children}
+//             </div>
+//         )
             
-    }
-}
+//     }
+// }
 
 class EmployeeFilter extends React.Component {
     render() {
@@ -125,14 +125,12 @@ class EmployeeList extends React.Component {
     render(){
         return(
             <React.Fragment>
-                <BorderWrap>
                     <h1>Employee Management Application</h1>
                     <EmployeeFilter/>
                     <hr/>
                     <EmployeeTable/>
                     <hr/>
                     <EmployeeAdd/>
-                </BorderWrap>
             </React.Fragment>
         )
     }

@@ -49,17 +49,19 @@ const employee = [{
   dateHired: new Date('2015-01-03'),
   isEmployed: false
 }];
-class BorderWrap extends React.Component {
-  render() {
-    const borderStyle = {
-      border: "3px solid silver",
-      padding: 6
-    };
-    return /*#__PURE__*/React.createElement("div", {
-      style: borderStyle
-    }, this.props.children);
-  }
-}
+// class BorderWrap extends React.Component {
+//     render() {
+//         const borderStyle = {border: "3px solid silver",
+//         padding: 6}
+//         return(
+//             <div style={borderStyle}>
+//                 {this.props.children}
+//             </div>
+//         )
+
+//     }
+// }
+
 class EmployeeFilter extends React.Component {
   render() {
     return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for the Employee Filter.");
@@ -89,7 +91,7 @@ class EmployeeAdd extends React.Component {
 }
 class EmployeeList extends React.Component {
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BorderWrap, null, /*#__PURE__*/React.createElement("h1", null, "Employee Management Application"), /*#__PURE__*/React.createElement(EmployeeFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeTable, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeAdd, null)));
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Employee Management Application"), /*#__PURE__*/React.createElement(EmployeeFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeTable, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeAdd, null));
   }
 }
 ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(EmployeeList, null)), document.getElementById('content'));
