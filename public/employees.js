@@ -32,7 +32,7 @@
 
 // Sample class component
 
-const employee = [{
+const initialEmployees = [{
   id: 1,
   name: 'Ryan King',
   ext: '1124',
@@ -47,8 +47,16 @@ const employee = [{
   email: 'sally@gmail.com',
   title: 'Director of Sales',
   dateHired: new Date('2015-01-03'),
-  isEmployed: false
+  isEmployed: true
 }];
+const sampleEmployee = {
+  name: 'Holly Unlikely',
+  ext: 1126,
+  email: 'holly@vectacorp.com',
+  title: 'Director of Marketing',
+  dateHired: new Date('2019-03-04'),
+  isEmployed: true
+};
 // class BorderWrap extends React.Component {
 //     render() {
 //         const borderStyle = {border: "3px solid silver",
@@ -69,7 +77,7 @@ class EmployeeFilter extends React.Component {
 }
 class EmployeeTable extends React.Component {
   render() {
-    const employeeRows = employee.map(employee => /*#__PURE__*/React.createElement(EmployeeRow, {
+    const employeeRows = this.props.employees.map(employee => /*#__PURE__*/React.createElement(EmployeeRow, {
       key: employee.id,
       employee: employee
     }));
@@ -85,13 +93,48 @@ class EmployeeRow extends React.Component {
   }
 }
 class EmployeeAdd extends React.Component {
+  constructor() {
+    super();
+    setTimeout(() => {
+      this.props.createEmployee(sampleEmployee);
+    }, 2000);
+  }
   render() {
     return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for a form to add an employee.");
   }
 }
 class EmployeeList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      employees: []
+    };
+    this.createEmployee = this.createEmployee.bind(this);
+  }
+  componentDidMount() {
+    this.loadData();
+  }
+  loadData() {
+    setTimeout(() => {
+      this.setState({
+        employees: initialEmployees
+      });
+    }, 500);
+  }
+  createEmployee(employee) {
+    employee.id = this.state.employees.length + 1;
+    const newEmployeeList = this.state.employees.slice();
+    newEmployeeList.push(employee);
+    this.setState({
+      employees: newEmployeeList
+    });
+  }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Employee Management Application"), /*#__PURE__*/React.createElement(EmployeeFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeTable, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeAdd, null));
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Employee Management Application"), /*#__PURE__*/React.createElement(EmployeeFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeTable, {
+      employees: this.state.employees
+    }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeAdd, {
+      createEmployee: this.createEmployee
+    }));
   }
 }
 ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(EmployeeList, null)), document.getElementById('content'));

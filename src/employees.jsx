@@ -33,7 +33,7 @@
 
 // Sample class component
 
-const employee = [
+const initialEmployees = [
     {
         id:1,
         name:'Ryan King',
@@ -50,10 +50,19 @@ const employee = [
         email: 'sally@gmail.com',
         title:'Director of Sales',
         dateHired: new Date('2015-01-03'),
-        isEmployed: false,
+        isEmployed: true,
     }
     
 ]
+
+const sampleEmployee = {
+    name: 'Holly Unlikely',
+    ext: 1126,
+    email: 'holly@vectacorp.com',
+    title: 'Director of Marketing',
+    dateHired: new Date('2019-03-04'),
+    isEmployed: true,
+}
 // class BorderWrap extends React.Component {
 //     render() {
 //         const borderStyle = {border: "3px solid silver",
@@ -75,7 +84,7 @@ class EmployeeFilter extends React.Component {
 
 class EmployeeTable extends React.Component {
     render() {
-        const employeeRows = employee.map(employee =>
+        const employeeRows = this.props.employees.map(employee =>
             <EmployeeRow key={employee.id} employee={employee}/>)
         
         return (
@@ -117,20 +126,45 @@ class EmployeeRow extends React.Component {
 }
 
 class EmployeeAdd extends React.Component {
+    constructor() {
+        super()
+        setTimeout(() => {
+            this.props.createEmployee(sampleEmployee)
+        }, 2000)
+    }
     render() {
         return<div>This is a placeholder for a form to add an employee.</div>
     }
 }
 class EmployeeList extends React.Component {
+    constructor() {
+        super()
+        this.state = { employees: [] }
+        this.createEmployee = this.createEmployee.bind(this)
+    }
+    componentDidMount () {
+        this.loadData()
+    }
+    loadData() {
+        setTimeout(() => {
+            this.setState({ employees: initialEmployees})
+        }, 500)
+    }
+    createEmployee(employee) {
+        employee.id = this.state.employees.length + 1
+        const newEmployeeList = this.state.employees.slice()
+        newEmployeeList.push(employee)
+        this.setState({employees: newEmployeeList})
+    } 
     render(){
         return(
             <React.Fragment>
                     <h1>Employee Management Application</h1>
                     <EmployeeFilter/>
                     <hr/>
-                    <EmployeeTable/>
+                    <EmployeeTable employees={this.state.employees}/>
                     <hr/>
-                    <EmployeeAdd/>
+                    <EmployeeAdd createEmployee = {this.createEmployee}/>
             </React.Fragment>
         )
     }
